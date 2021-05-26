@@ -1,10 +1,9 @@
 const FILES_TO_CACHE = [
   '/',
   '/index.html',
+  '/manifest.webmanifest',
   '/index.js',
   '/db.js',
-  '/favicon.ico',
-  '/manifest.webmanifest',
   '/styles.css',
   '/icons/icon-192x192.png',
   '/icons/icon-512x512.png',
@@ -19,9 +18,9 @@ self.addEventListener('install', (evt) => {
   evt.waitUntil(
     caches
       .open(BUDGET_PRECACHE)
-      .then((caches) => {
+      .then((cache) => {
         console.log('Your files were pre-cached successfully');
-        return caches.addAll(FILES_TO_CACHE);
+        return cache.addAll(FILES_TO_CACHE);
       })
       .then(self.skipWaiting())
   );
