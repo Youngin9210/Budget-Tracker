@@ -9,7 +9,6 @@ request.onupgradeneeded = (e) => {
   console.log(`DB Updated from version ${oldVersion} to ${newVersion}`);
 
   db = e.target.result;
-  alert(`upgraded ${db.name}`);
 
   if (db.objectStoreNames.length === 0) {
     db.createObjectStore('budgetStore', { autoIncrement: true });
@@ -17,7 +16,6 @@ request.onupgradeneeded = (e) => {
 };
 
 request.onsuccess = (e) => {
-  alert('success');
   db = e.target.result;
 
   // Check if app is online before reading from db
@@ -28,7 +26,6 @@ request.onsuccess = (e) => {
 };
 
 request.onerror = (e) => {
-  alert('error');
   console.log(`Woops! ${e.target.errorCode}`);
 };
 
