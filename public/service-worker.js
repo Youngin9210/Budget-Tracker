@@ -2,19 +2,17 @@ const FILES_TO_CACHE = [
   '/',
   '/index.html',
   '/manifest.webmanifest',
-  '/index.js',
-  '/db.js',
   '/styles.css',
-  '/icons/icon-192x192.png',
-  '/icons/icon-512x512.png',
   'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
+  'https://cdn.jsdelivr.net/npm/chart.js@2.8.0',
 ];
 
 const BUDGET_PRECACHE = 'budget-precache-v1';
 const RUNTIME_CACHE = 'runtime';
 
-// install
+// instaling service worker
 self.addEventListener('install', (evt) => {
+  // pre-caching budget data
   evt.waitUntil(
     caches
       .open(BUDGET_PRECACHE)
@@ -22,13 +20,15 @@ self.addEventListener('install', (evt) => {
         console.log('Your files were pre-cached successfully');
         return cache.addAll(FILES_TO_CACHE);
       })
+      // activating service-worker after install
       .then(self.skipWaiting())
   );
 });
 
-// activate
+// activating service worker and cleaning up old cache
 self.addEventListener('active', (evt) => {
   evt.waitUntil(
+    // delete any caches that are not pre-defined
     caches.keys().then((keyList) => {
       return Promise.all(
         keyList.map((key) => {
@@ -44,7 +44,7 @@ self.addEventListener('active', (evt) => {
   self.clients.claim();
 });
 
-// fetch
+// fetching cached data
 self.addEventListener('fetch', function (evt) {
   if (evt.request.url.includes('/api/')) {
     evt.respondWith(
