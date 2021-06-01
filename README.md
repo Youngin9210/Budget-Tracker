@@ -7,7 +7,7 @@ OSU wk 18 HW
 
 ## Description
 
-An MVC app that allows users to login or sign up to create new, update or delete existing, and comment on other user's blogs!
+An app to track a user's budget on and offline so the user can always keep track of their money no matter where they are!
 
 ## Technologies Used
 
